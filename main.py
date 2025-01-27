@@ -1,13 +1,31 @@
 import telebot#telebot - модуль, с помощью которого мы можем создать своего телеграмм бота
+import random
 
-Black_person_from_film = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
+randomy = random.randint(1, 3)
+Token = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
 
-def start_text(first_message):
-    bot.send_message(first_message.chat.id, "Салам алейкум, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции")
+bot = telebot.TeleBot(Token)
+
+@bot.message_handler(commands=["start"])#Хендлер - это обработчик, куда мы сохраняем комманду, которую мы сможем писать боту, на которую бот будет отвечать
+def start_text(message):
+    bot.send_message(
+        message.chat.id,
+        "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции")
+
+@bot.message_handler(commands=["repost"])
+def random_joke(message):
+    randomy = random.randint(1, 3)
+    bot.send_message(message.chat.id, text=message)
+    if randomy == 1:
+        bot.send_message(
+            message.chat.id,
+            "Фиг тебе, я в бета тесте")
+    elif randomy == 2:
+        bot.send_message(message.chat.id, "Привет! Ты выиграл случайное сообщение!")
+    elif randomy == 3:
+        bot.send_message(message.chat.id, "Хватить спамить командой")
 
 
-bot = telebot.TeleBot(Black_person_from_film)
-@bot.start_text(commamds=["start"])
 
 if __name__ == "__main__":
     bot.polling(non_stop=True)
