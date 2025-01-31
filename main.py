@@ -1,6 +1,8 @@
 import telebot#telebot - модуль, с помощью которого мы можем создать своего телеграмм бота
 import random
 
+Madagaskar_photo = "Cringe_photos/MADAGASKAR.png"
+
 randomy = random.randint(1, 3)
 Token = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
 
@@ -12,7 +14,7 @@ def start_text(message):
         message.chat.id,
         "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции")
 
-@bot.message_handler(commands=["repost"])
+@bot.message_handler(commands=["repos"])
 def random_joke(message):
     randomy = random.randint(1, 3)
     bot.send_message(message.chat.id, text=message)
@@ -25,6 +27,13 @@ def random_joke(message):
     elif randomy == 3:
         bot.send_message(message.chat.id, "Хватить спамить командой")
 
+
+@bot.message_handler(commands=["repost"])
+def cringe_things(message):
+    overrandom = random.randint(1, 1)
+    if overrandom == 1:
+        with open(Madagaskar_photo, "rb") as photo:#with open - это конструкция для открытия файлов, rb - read binary - читать в двоичноимм коде(как и надо с картинками)
+            bot.send_photo(message.chat.id, photo)
 
 
 if __name__ == "__main__":
