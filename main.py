@@ -2,6 +2,7 @@ import telebot#telebot - модуль, с помощью которого мы �
 import random
 
 Madagaskar_photo = "Cringe_photos/MADAGASKAR.png"
+Omnomnom = "Cringe_photos/tiktok_moment_1.mp4"
 
 randomy = random.randint(1, 3)
 Token = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
@@ -30,10 +31,14 @@ def random_joke(message):
 
 @bot.message_handler(commands=["repost"])
 def cringe_things(message):
-    overrandom = random.randint(1, 1)
+    overrandom = random.randint(1, 2)
     if overrandom == 1:
         with open(Madagaskar_photo, "rb") as photo:#with open - это конструкция для открытия файлов, rb - read binary - читать в двоичноимм коде(как и надо с картинками)
             bot.send_photo(message.chat.id, photo)
+    elif overrandom == 2:
+        with open(Omnomnom, "rb") as video:
+            bot.send_message(message.chat.id, video)
+
 
 
 if __name__ == "__main__":
