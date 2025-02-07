@@ -13,7 +13,7 @@ bot = telebot.TeleBot(Token)
 def start_text(message):
     bot.send_message(
         message.chat.id,
-        "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции")
+        "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, напишите /repost")
 
 @bot.message_handler(commands=["repos"])
 def random_joke(message):
@@ -34,10 +34,12 @@ def cringe_things(message):
     overrandom = random.randint(1, 2)
     if overrandom == 1:
         with open(Madagaskar_photo, "rb") as photo:#with open - это конструкция для открытия файлов, rb - read binary - читать в двоичноимм коде(как и надо с картинками)
-            bot.send_photo(message.chat.id, photo)
+            bot.send_photo(message.chat.id, photo,
+            caption = "Вы открыли новый кринж из тиктока - Мадагаскар! \nРедкость : редкий(2000 очков)")
     elif overrandom == 2:
         with open(Omnomnom, "rb") as video:
-            bot.send_message(message.chat.id, video)
+            bot.send_video(message.chat.id, video,
+            caption = "Вы открыли новый кринж из тиктока - Рекорд! \nРедкость : обычная(1000 очков)")#send_video нужн для того, чтобы отправлять ВИДЕО<- <- <- <- <- <-
 
 
 
