@@ -24,7 +24,7 @@ def start_text(message):
     bot.send_message(
         message.chat.id,
         "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, напишите /repost",
-        replyboard=get_keyboard())
+        reply_markup=get_keyboard())
 
 
 @bot.message_handler(commands=["repos"])
@@ -41,7 +41,7 @@ def random_joke(message):
         bot.send_message(message.chat.id, "Хватить спамить командой")
 
 
-@bot.message_handler(commands=["repost"])
+@bot.message_handler(commands=(func=lambda message: message.text == "Кринж с тиктока")
 def cringe_things(message):
     overrandom = random.randint(1, 2)
     if overrandom == 1:
