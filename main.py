@@ -30,7 +30,7 @@ def start_text(message):
 @bot.message_handler(commands=["repos"])
 def random_joke(message):
     randomy = random.randint(1, 3)
-    bot.send_message(message.chat.id, text=message)
+    bot.send_message(message.chat.id, text=message.text)
     if randomy == 1:
         bot.send_message(
             message.chat.id,
@@ -41,7 +41,7 @@ def random_joke(message):
         bot.send_message(message.chat.id, "Хватить спамить командой")
 
 
-@bot.message_handler(commands=(func=lambda message: message.text == "Кринж с тиктока")
+@bot.message_handler(func=lambda message: message.text == "Кринж с тиктока")
 def cringe_things(message):
     overrandom = random.randint(1, 2)
     if overrandom == 1:
