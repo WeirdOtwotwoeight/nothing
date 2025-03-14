@@ -4,9 +4,16 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 Madagaskar_photo = "Cringe_photos/MADAGASKAR.png"
 Omnomnom = "Cringe_photos/tiktok_moment_1.mp4"
-
-randomy = random.randint(1, 3)
 Token = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
+Eye = "Cringe_photos/Eye.png"
+School = ["Разговоры о важном", "Алгебра", "Геометрия", "ТВиС", "Русский язык", "Английский язык", "Обществознание","География💀", "Биология", "История", "Литература", "Физика", "Информатика", "Физ-ра"]
+Update_school = School
+Decision = False
+BFDI = False
+print(Update_school)
+win_opinion = ""#Переменная, в которую сохраняются выбор "пользователей" в игре с предметами
+Var_one = None
+Var_two = None
 
 bot = telebot.TeleBot(Token)
 
@@ -14,7 +21,15 @@ bot = telebot.TeleBot(Token)
 def get_keyboard():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     cringe_button = KeyboardButton("Кринж с титока")
+    cringer_button = KeyboardButton("Не тапайте")
+    third_button = KeyboardButton("Eye of Rah")#Создаём кнопку
+    button_again = KeyboardButton("вот")
+    no_tap = KeyboardButton("Битва за ин")
     keyboard.add(cringe_button)
+    keyboard.add(cringer_button)
+    keyboard.add(third_button)#Добавляем кнопку в клавиатуру
+    keyboard.add(button_again)
+    keyboard.add(no_tap)
     return keyboard
 
 
@@ -23,25 +38,14 @@ def get_keyboard():
 def start_text(message):
     bot.send_message(
         message.chat.id,
-        "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, напишите /repost",
+        "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, нажмите на кнопку",
         reply_markup=get_keyboard())
 
 
-@bot.message_handler(commands=["repos"])
-def random_joke(message):
-    randomy = random.randint(1, 3)
-    bot.send_message(message.chat.id, text=message.text)
-    if randomy == 1:
-        bot.send_message(
-            message.chat.id,
-            "Фиг тебе, я в бета тесте")
-    elif randomy == 2:
-        bot.send_message(message.chat.id, "Привет! Ты выиграл случайное сообщение!")
-    elif randomy == 3:
-        bot.send_message(message.chat.id, "Хватить спамить командой")
 
 
-@bot.message_handler(func=lambda message: message.text == "Кринж с тиктока")
+
+@bot.message_handler(func=lambda message: message.text == "Кринж с титока")
 def cringe_things(message):
     overrandom = random.randint(1, 2)
     if overrandom == 1:
@@ -53,6 +57,31 @@ def cringe_things(message):
         with open(Omnomnom, "rb") as video:
             bot.send_video(message.chat.id, video,
                            caption="Вы открыли новый кринж из тиктока - Рекорд! \nРедкость : обычная(1000 очков)")  #send_video нужн для того, чтобы отправлять ВИДЕО<- <- <- <- <- <-
+
+@bot.message_handler(func=lambda message: message.text == "Не тапайте")
+def vid(message):
+    bot.send_message(message.chat.id, "AAAуууэээЫЫЫ")
+
+
+
+@bot.message_handler(func=lambda message: message.text == "Eye of Rah")#Создаю новый хендлер
+def my_button(message):#Создаю функцию для своей кнопки
+    with open(Eye, "rb") as photo:#Говорим программе, что сообшение - фото
+        bot.send_photo(message.chat.id, photo)#Отправляем фото
+
+
+@bot.message_handler(func= lambda message: message.text == "Битва за ин")
+def rogalik(message):
+    global Var_two, Var_one, School
+    Var_one , Var_two = random.sample(range(13), 2)
+    bot.send_message(message.chat.id,"Теперь вы оставили свою заявку на игру насмерть, от которой вы теперь не откажитесь. Короче перед вами будут 2 варианта ответа на вопрос, вы отвечаете и всe радуются жизни. Круто?")
+    bot.send_message(message.chat.id,School[Var_one] +" или "+ School[Var_two] + "?")
+    if Decision:
+        if Update_school != []:
+            Update_school
+            Var_two = random.randint(0,)
+
+
 
 
 if __name__ == "__main__":
