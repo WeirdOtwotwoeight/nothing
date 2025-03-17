@@ -7,7 +7,7 @@ Omnomnom = "Cringe_photos/tiktok_moment_1.mp4"
 Token = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
 Eye = "Cringe_photos/Eye.png"
 School = ["Разговоры о важном", "Алгебра", "Геометрия", "ТВиС", "Русский язык", "Английский язык", "Обществознание","География💀", "Биология", "История", "Литература", "Физика", "Информатика", "Физ-ра"]
-Update_school = School
+Update_school = School.copy()
 Decision = False
 BFDI = False
 print(Update_school)
@@ -40,6 +40,7 @@ def start_text(message):
         message.chat.id,
         "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, нажмите на кнопку",
         reply_markup=get_keyboard())
+    null()
 
 
 
@@ -69,17 +70,34 @@ def my_button(message):#Создаю функцию для своей кнопк
     with open(Eye, "rb") as photo:#Говорим программе, что сообшение - фото
         bot.send_photo(message.chat.id, photo)#Отправляем фото
 
-
+def null():
+    global BFDI, Var_one, Var_two, Update_school, win_opinion
+    BFDI = False
+    Var_one = None
+    Var_two = None
+    Update_school = School.copy()
+    win_opinion = ""
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
 def rogalik(message):
-    global Var_two, Var_one, School
-    Var_one , Var_two = random.sample(range(13), 2)
-    bot.send_message(message.chat.id,"Теперь вы оставили свою заявку на игру насмерть, от которой вы теперь не откажитесь. Короче перед вами будут 2 варианта ответа на вопрос, вы отвечаете и всe радуются жизни. Круто?")
-    bot.send_message(message.chat.id,School[Var_one] +" или "+ School[Var_two] + "?")
-    if Decision:
-        if Update_school != []:
-            Update_school
-            Var_two = random.randint(0,)
+    global Var_two, Var_one, School, BFDI, win_opinion, Update_school
+    if BFDI == True:
+        bot.send_message(message.chat.id, "Перезапсукаем")
+        null()
+    else:
+        BFDI = True
+    Update_school = School.copy()
+    bot.send_message(message.chat.id,
+                     "Теперь вы оставили свою заявку на игру насмерть, от которой вы теперь не откажитесь. Короче перед вами будут 2 варианта ответа на вопрос, вы отвечаете и всe радуются жизни. Круто?")
+    if win_opinion == "":
+        Var_one, Var_two = random.sample(range(13), 2)
+        bot.send_message(message.chat.id, Update_school[Var_one] + " или " + Update_school[Var_two] + "?")
+        del Update_school[Var_one]#Удаляем элемент под определённым индексом
+        del Update_school[Var_two]
+
+
+
+
+
 
 
 
