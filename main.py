@@ -14,6 +14,8 @@ print(Update_school)
 win_opinion = ""#Переменная, в которую сохраняются выбор "пользователей" в игре с предметами
 Var_one = None
 Var_two = None
+choose_one = None
+choose_two = None
 
 bot = telebot.TeleBot(Token)
 
@@ -79,7 +81,7 @@ def null():
     win_opinion = ""
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
 def rogalik(message):
-    global Var_two, Var_one, School, BFDI, win_opinion, Update_school
+    global Var_two, Var_one, School, BFDI, win_opinion, Update_school, choose_one, choose_two, epic_battles
     if BFDI == True:
         bot.send_message(message.chat.id, "Перезапсукаем")
         null()
@@ -89,10 +91,16 @@ def rogalik(message):
     bot.send_message(message.chat.id,
                      "Теперь вы оставили свою заявку на игру насмерть, от которой вы теперь не откажитесь. Короче перед вами будут 2 варианта ответа на вопрос, вы отвечаете и всe радуются жизни. Круто?")
     if win_opinion == "":
+        epic_battles = ReplyKeyboardMarkup(resize_keyboard=True)
+        choose_one = KeyboardButton(Var_one)
+        choose_two = KeyboardButton(Var_two)
+        epic_battles.add(choose_one)
+        epic_battles.add(choose_two)
         Var_one, Var_two = random.sample(range(13), 2)
         bot.send_message(message.chat.id, Update_school[Var_one] + " или " + Update_school[Var_two] + "?")
         del Update_school[Var_one]#Удаляем элемент под определённым индексом
         del Update_school[Var_two]
+        return epic_battles
 
 
 
