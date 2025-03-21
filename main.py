@@ -79,28 +79,56 @@ def null():
     Var_two = None
     Update_school = School.copy()
     win_opinion = ""
+
+
+@bot.message_handler(func= lambda message: message.text in School)
+def user_selection_processing(message):
+    global win_opinion
+    win_opinion = message
+    bot.send_message(message.chat.id, "я тебя запомнил")
+
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
 def rogalik(message):
     global Var_two, Var_one, School, BFDI, win_opinion, Update_school, choose_one, choose_two, epic_battles
-    if BFDI == True:
+
+    if BFDI:
         bot.send_message(message.chat.id, "Перезапсукаем")
         null()
     else:
         BFDI = True
+
     Update_school = School.copy()
     bot.send_message(message.chat.id,
                      "Теперь вы оставили свою заявку на игру насмерть, от которой вы теперь не откажитесь. Короче перед вами будут 2 варианта ответа на вопрос, вы отвечаете и всe радуются жизни. Круто?")
-    if win_opinion == "":
-        epic_battles = ReplyKeyboardMarkup(resize_keyboard=True)
-        choose_one = KeyboardButton(Var_one)
-        choose_two = KeyboardButton(Var_two)
-        epic_battles.add(choose_one)
-        epic_battles.add(choose_two)
-        Var_one, Var_two = random.sample(range(13), 2)
-        bot.send_message(message.chat.id, Update_school[Var_one] + " или " + Update_school[Var_two] + "?")
+
+    Var_one, Var_two = random.sample(range(13), 2)
+    epic_battles = ReplyKeyboardMarkup(resize_keyboard=True)
+
+
+
+    choose_one = KeyboardButton(School[Var_one])
+    choose_two = KeyboardButton(School[Var_two])
+
+    epic_battles.add(choose_one)
+    epic_battles.add(choose_two)
+
+    bot.send_message(
+        message.chat.id,
+        f"{School[Var_one]} или {School[Var_two]}?",
+        reply_markup=epic_battles
+    )
+
+
+    if Var_one > Var_two:
         del Update_school[Var_one]#Удаляем элемент под определённым индексом
         del Update_school[Var_two]
-        return epic_battles
+    else:
+        del Update_school[Var_two]
+        del Update_school[Var_one ]  # Удаляем элемент под определённым индексом
+    print(Update_school)
+
+
+    return epic_battles
 
 
 
