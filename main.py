@@ -16,6 +16,10 @@ Var_one = None
 Var_two = None
 choose_one = None
 choose_two = None
+epic_two = None
+chooose_one = None
+chooose_two = None
+
 
 bot = telebot.TeleBot(Token)
 
@@ -80,12 +84,28 @@ def null():
     Update_school = School.copy()
     win_opinion = ""
 
-
+#Хендрел сработает, когда текст сообщения будет названием предмета
 @bot.message_handler(func= lambda message: message.text in School)
 def user_selection_processing(message):
-    global win_opinion
-    win_opinion = message
-    bot.send_message(message.chat.id, "я тебя запомнил")
+    global win_opinion, Update_school, Var_two, epic_two, chooose_one, chooose_two
+    win_opinion = message.text
+    bot.send_message(message.chat.id, f"Вы выбрали предмет {win_opinion.lower()}")
+    Var_two = random.randint(0,len(Update_school))
+    bot.send_message(
+        message.chat.id,
+        f"{win_opinion} или {Update_school[Var_two]}?",
+        reply_markup=epic_battles
+    )
+    choose_one = KeyboardButton(win_opinion)
+    choose_two = KeyboardButton(Update_school[Var_two])
+
+    epic_battles.add(choose_one)
+    epic_battles.add(choose_two)
+
+    epic_two = ReplyKeyboardMarkup(resize_keyboard=True)
+    chooose_one = choose_one
+    chooose_two = choose_two
+
 
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
 def rogalik(message):
