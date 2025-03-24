@@ -96,15 +96,13 @@ def user_selection_processing(message):
         f"{win_opinion} или {Update_school[Var_two]}?",
         reply_markup=epic_battles
     )
-    choose_one = KeyboardButton(win_opinion)
-    choose_two = KeyboardButton(Update_school[Var_two])
-
-    epic_battles.add(choose_one)
-    epic_battles.add(choose_two)
 
     epic_two = ReplyKeyboardMarkup(resize_keyboard=True)
-    chooose_one = choose_one
-    chooose_two = choose_two
+    chooose_one = KeyboardButton(win_opinion)
+    chooose_two = KeyboardButton(Update_school[Var_two])
+
+    epic_two.add(chooose_one)
+    epic_two.add(chooose_two)
 
 
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
@@ -148,7 +146,7 @@ def rogalik(message):
     print(Update_school)
 
 
-    return epic_battles
+    return epic_two
 
 
 
