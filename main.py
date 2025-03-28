@@ -88,22 +88,34 @@ def null():
 @bot.message_handler(func= lambda message: message.text in School)
 def user_selection_processing(message):
     global win_opinion, Update_school, Var_two, epic_two, chooose_one, chooose_two
+
     win_opinion = message.text
+    Var_two = random.randint(0, len(Update_school)-1)
+
+    print(Update_school[Var_two])
+
+
+
+
     bot.send_message(message.chat.id, f"Вы выбрали предмет {win_opinion.lower()}")
-    Var_two = random.randint(0,len(Update_school))
-    bot.send_message(
-        
-        message.chat.id,
-        f"{win_opinion} или {Update_school[Var_two]}?",
-        reply_markup=epic_battles
-    )
+
 
     epic_two = ReplyKeyboardMarkup(resize_keyboard=True)
-    chooose_one = KeyboardButton(win_opinion)
-    chooose_two = KeyboardButton(Update_school[Var_two])
 
-    epic_two.add(chooose_one)
-    epic_two.add(chooose_two)
+
+    epic_two.add(KeyboardButton(win_opinion))
+    epic_two.add(KeyboardButton(Update_school[Var_two]))
+
+    del Update_school[Var_two]
+
+
+    bot.send_message(
+
+        message.chat.id,
+        f"{win_opinion} или {Update_school[Var_two]}?",
+        reply_markup=epic_two
+    )
+
 
 
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
