@@ -92,6 +92,7 @@ def user_selection_processing(message):
     bot.send_message(message.chat.id, f"Вы выбрали предмет {win_opinion.lower()}")
     Var_two = random.randint(0,len(Update_school))
     bot.send_message(
+        
         message.chat.id,
         f"{win_opinion} или {Update_school[Var_two]}?",
         reply_markup=epic_battles
