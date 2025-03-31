@@ -47,6 +47,7 @@ def start_text(message):
         "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, нажмите на кнопку",
         reply_markup=get_keyboard())
     null()
+    print(message.from_user.id)
 
 
 
@@ -77,45 +78,51 @@ def my_button(message):#Создаю функцию для своей кнопк
         bot.send_photo(message.chat.id, photo)#Отправляем фото
 
 def null():
-    global BFDI, Var_one, Var_two, Update_school, win_opinion
+    global BFDI, Var_one, Var_two, Update_school, win_opinion, epic_two
     BFDI = False
     Var_one = None
     Var_two = None
     Update_school = School.copy()
     win_opinion = ""
+    epic_two = None
 
 #Хендрел сработает, когда текст сообщения будет названием предмета
 @bot.message_handler(func= lambda message: message.text in School)
 def user_selection_processing(message):
     global win_opinion, Update_school, Var_two, epic_two, chooose_one, chooose_two
+    print(Update_school)
+    if len(Update_school) == 0:
+        bot.send_message(message.chat.id, f"Ваш любимый предмет - это {win_opinion.lower()}")
+        bot.send_message(message.chat.id, text="Напишите /start, мне лень всё делать автоматическим")
+    else:
 
-    win_opinion = message.text
-    Var_two = random.randint(0, len(Update_school)-1)
+        win_opinion = message.text#Добавляем отправленное пользователем сообщение в win_opinion
+        Var_two = random.randint(0, len(Update_school)-1)#Значением переменной Var_two делаем случайный индекс в диапозоне списка Update_school
 
-    print(Update_school[Var_two])
-
-
-
-
-    bot.send_message(message.chat.id, f"Вы выбрали предмет {win_opinion.lower()}")
-
-
-    epic_two = ReplyKeyboardMarkup(resize_keyboard=True)
+        print(Update_school[Var_two])
 
 
-    epic_two.add(KeyboardButton(win_opinion))
-    epic_two.add(KeyboardButton(Update_school[Var_two]))
-
-    del Update_school[Var_two]
 
 
-    bot.send_message(
+        bot.send_message(message.chat.id, f"Вы выбрали предмет {win_opinion.lower()}")#Отправляем пользователю сообщение о его выборе
 
-        message.chat.id,
-        f"{win_opinion} или {Update_school[Var_two]}?",
-        reply_markup=epic_two
-    )
 
+        epic_two = ReplyKeyboardMarkup(resize_keyboard=True)#Создаём клавиатуру
+
+
+        epic_two.add(KeyboardButton(win_opinion))#Добавляем кнопку с выбором пользователя
+        epic_two.add(KeyboardButton(Update_school[Var_two]))#Добавляем кнопку с рандомным элементом из Update_school(Его индексом является Var_two)
+
+
+
+
+        bot.send_message(
+
+            message.chat.id,
+            f"{win_opinion} или {Update_school[Var_two]}?",#Отправляем сообщения с выбором
+            reply_markup=epic_two#Отображаем клавиатуру
+        )
+        del Update_school[Var_two]#Удаляем из списка Update_school элемент с индексом Var_two
 
 
 @bot.message_handler(func= lambda message: message.text == "Битва за ин")
