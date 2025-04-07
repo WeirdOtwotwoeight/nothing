@@ -19,6 +19,8 @@ choose_two = None
 epic_two = None
 chooose_one = None
 chooose_two = None
+all_of_them = open("dox/dox_classmates.txt", "r")
+file_work = all_of_them.read()
 
 
 bot = telebot.TeleBot(Token)
@@ -42,15 +44,20 @@ def get_keyboard():
 @bot.message_handler(commands=[
     "start"])  #Хендлер - это обработчик, куда мы сохраняем комманду, которую мы сможем писать боту, на которую бот будет отвечать
 def start_text(message):
+    global all_of_them
     bot.send_message(
         message.chat.id,
         "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, нажмите на кнопку",
         reply_markup=get_keyboard())
     null()
     print(message.from_user.id)
-
-
-
+    all_of_them = open("dox/dox_classmates.txt", "r")  # Открыли файл в режиме добавления новой информации
+    if str(message.from_user.id) not in file_work:
+        print(file_work)
+        all_of_them = open("dox/dox_classmates.txt", "a") # Открыли файл в режиме добавления новой информации
+        all_of_them.write(" ")
+        all_of_them.write(str(message.from_user.id))  # Записываем новую информацию в файл
+    all_of_them.close()  # Это надо делать, а не то ошибка будет
 
 
 @bot.message_handler(func=lambda message: message.text == "Кринж с титока")
