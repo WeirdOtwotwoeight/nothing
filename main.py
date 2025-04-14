@@ -21,6 +21,14 @@ chooose_one = None
 chooose_two = None
 all_of_them = open("dox/dox_classmates.txt", "r")
 file_work = all_of_them.read()
+time_one = None
+time_two = None
+reventure = []
+dumb_dumb_dictionary = {"id":0,
+                        "time":0,
+                        "points":0,
+                        "last_time":0}
+not_none = False
 
 
 bot = telebot.TeleBot(Token)
@@ -44,24 +52,53 @@ def get_keyboard():
 @bot.message_handler(commands=[
     "start"])  #Хендлер - это обработчик, куда мы сохраняем комманду, которую мы сможем писать боту, на которую бот будет отвечать
 def start_text(message):
-    global all_of_them
+    global all_of_them, file_work, dumb_dumb_dictionary, not_none
+
+
     bot.send_message(
         message.chat.id,
         "Вечер в хату, это бот, который захватит весь мир, заставив вас деградировать, использовав его базовые функции. Чтобы получить кринж, нажмите на кнопку",
         reply_markup=get_keyboard())
+
+
     null()
+
+
     print(message.from_user.id)
-    all_of_them = open("dox/dox_classmates.txt", "r")  # Открыли файл в режиме добавления новой информации
+    bot.send_message(message.chat.id, message)
+
+
+    all_of_them = open("dox/dox_classmates.txt", "r")
+    file_work = all_of_them.read()
+
+
     if str(message.from_user.id) not in file_work:
         print(file_work)
         all_of_them = open("dox/dox_classmates.txt", "a") # Открыли файл в режиме добавления новой информации
         all_of_them.write(" ")
         all_of_them.write(str(message.from_user.id))  # Записываем новую информацию в файл
+        all_of_them.write(str(message.date))
     all_of_them.close()  # Это надо делать, а не то ошибка будет
+
+
+    dumb_dumb_dictionary["id"] = message.from_user.id
+    dumb_dumb_dictionary["time"] = message.date
+
+    print(dumb_dumb_dictionary)
+    reventure.append(dumb_dumb_dictionary)
+    print(reventure)
+    dumb_dumb_dictionary = {"id":0,
+                        "time":0,
+                        "points":0,
+                        "last_time":0}
+
 
 
 @bot.message_handler(func=lambda message: message.text == "Кринж с титока")
 def cringe_things(message):
+    global time_one
+    time_one = message.date
+    print(time_one)
     overrandom = random.randint(1, 2)
     if overrandom == 1:
         with open(Madagaskar_photo,
