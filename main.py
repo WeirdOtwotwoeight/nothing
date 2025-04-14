@@ -81,25 +81,32 @@ def start_text(message):
     all_of_them.close()  # Это надо делать, а не то ошибка будет
 
 
-    dumb_dumb_dictionary["id"] = message.from_user.id
-    dumb_dumb_dictionary["time"] = message.date
 
-    print(dumb_dumb_dictionary)
-    reventure.append(dumb_dumb_dictionary)
-    print(reventure)
-    dumb_dumb_dictionary = {"id":0,
-                        "time":0,
-                        "points":0,
-                        "last_time":0}
 
 
 
 @bot.message_handler(func=lambda message: message.text == "Кринж с титока")
 def cringe_things(message):
-    global time_one
+    global time_one, dumb_dumb_dictionary, overrandom
+    dumb_dumb_dictionary["id"] = message.from_user.id
+    dumb_dumb_dictionary["last_time"] = message.date
+    print(dumb_dumb_dictionary)
+    reventure.append(dumb_dumb_dictionary)
+    print(reventure)
+    dumb_dumb_dictionary = {"id": 0,
+                            "time": 0,
+                            "points": 0,
+                            "last_time": 0}
+    for forr in reventure:
+        if forr["id"] == message.from_user.id:
+            print("опять ты.")
+            if message.date - forr["last_time"] >= 10:
+                overrandom = random.randint(1, 2)
+                print("фллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллшупрд")
+            else:
+                overrandom = 0
     time_one = message.date
     print(time_one)
-    overrandom = random.randint(1, 2)
     if overrandom == 1:
         with open(Madagaskar_photo,
                   "rb") as photo:  #with open - это конструкция для открытия файлов, rb - read binary - читать в двоичноимм коде(как и надо с картинками)
