@@ -87,25 +87,29 @@ def start_text(message):
 
 @bot.message_handler(func=lambda message: message.text == "Кринж с титока")
 def cringe_things(message):
-    global time_one, dumb_dumb_dictionary, overrandom
-    dumb_dumb_dictionary["id"] = message.from_user.id
-    dumb_dumb_dictionary["last_time"] = message.date
-    print(dumb_dumb_dictionary)
-    reventure.append(dumb_dumb_dictionary)
-    print(reventure)
-    dumb_dumb_dictionary = {"id": 0,
-                            "time": 0,
-                            "points": 0,
-                            "last_time": 0}
+    global time_one, dumb_dumb_dictionary, overrandom, current_id, current_time, old_user
+    current_id = message.from_user.id
+    current_time = message.date
+    old_user = False#Отвечает за наличие пользователя в списке
+    print(str(current_id)+" "+str(current_time))
     for forr in reventure:
-        if forr["id"] == message.from_user.id:
+        if forr["id"] == current_id:
+            old_user = True
             print("опять ты.")
+            print(forr[0][2])
             if message.date - forr["last_time"] >= 10:
                 overrandom = random.randint(1, 2)
                 print("фллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллшупрд")
             else:
                 overrandom = 0
-    time_one = message.date
+    if old_user == False:
+        dumb_dumb_dictionary["id"] = current_time
+        dumb_dumb_dictionary["last_time"] = current_time
+        reventure.append(dumb_dumb_dictionary)
+        overrandom = random.randint(1, 2)
+    print(dumb_dumb_dictionary)
+    print(reventure)
+
     print(time_one)
     if overrandom == 1:
         with open(Madagaskar_photo,
