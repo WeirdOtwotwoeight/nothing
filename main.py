@@ -126,6 +126,7 @@ def cringe_things(message):
                 remaining = 14400 - (current_time - forr["last_time"])
                 hours = remaining // 3600
                 minutes = (remaining % 3600) // 60
+                bot.send_message(message.chat.id, "Следующий кринж доступен через "+str(hours)+" часов и "+str(minutes)+" минут")
 
 
                 return  # Выходим из функции, не показывая кринж
