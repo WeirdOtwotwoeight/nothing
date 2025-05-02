@@ -235,6 +235,11 @@ def cringe_things(message):
         message.chat.id,
         f"Ваш текущий счет: {dumb_dumb_dictionary['points']} очков"
     )
+    print(dumb_dumb_dictionary)
+    file = open("dox/dox_classmates.txt", "a", encoding="utf-8")
+    file.write( str(dumb_dumb_dictionary["points"])+" количество баллов "+str(dumb_dumb_dictionary["id"])+" ")
+    file.close()
+
 
 
 
