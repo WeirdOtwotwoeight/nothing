@@ -4,8 +4,27 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 Madagaskar_photo = "Cringe_photos/MADAGASKAR.png"
 Omnomnom = "Cringe_photos/tiktok_moment_1.mp4"
+Crabs = "Cringe_photos/krabiki.mp4"
+game = "Cringe_photos/those.mp4"
+Tapok = "Cringe_photos/Tapok.mp4"
+Intro = "Cringe_photos/pharmacy.mp4"
+Eye_ = "Cringe_photos/shedevr.mp4"
+Early_brainrot = "Cringe_photos/bra.mp4"
+Bones = "Cringe_photos/old.mp4"
+AI = "Cringe_photos/ai.mp4"
+FREEDUROV = "Cringe_photos/freedurov.mp4"
 Token = "7642317234:AAH7k0vGi8OgPHAl9L834la2tiKtyk_Ikn8"
 Eye = "Cringe_photos/Eye.png"
+Police = "Cringe_photos/black.png"
+Blue = "Cringe_photos/blue_skull.png"
+Yummy = "Cringe_photos/bread.png"
+Dolphyn = "Cringe_photos/funny.png"
+Kitchen = "Cringe_photos/goida.png"
+Beaty = "Cringe_photos/gumball.png"
+Hmm = "Cringe_photos/not_a_meme.png"
+Avocado = "Cringe_photos/remnant.png"
+Blah = "Cringe_photos/so_sad.png"
+Trump = "Cringe_photos/Trump_with_Z.png"
 School = ["Разговоры о важном", "Алгебра", "Геометрия", "ТВиС", "Русский язык", "Английский язык", "Обществознание","География💀", "Биология", "История", "Литература", "Физика", "Информатика", "Физ-ра"]
 Update_school = School.copy()
 Decision = False
@@ -81,45 +100,127 @@ def start_text(message):
     all_of_them.close()  # Это надо делать, а не то ошибка будет
 
 
-
-
-
-
 @bot.message_handler(func=lambda message: message.text == "Кринж с титока")
 def cringe_things(message):
-    global time_one, dumb_dumb_dictionary, overrandom, current_id, current_time, old_user
-    current_id = message.from_user.id
+    global time_one, overrandom
+    user_id = message.from_user.id
     current_time = message.date
-    old_user = False#Отвечает за наличие пользователя в списке
-    print(str(current_id)+" "+str(current_time))
-    for forr in reventure:
-        if forr["id"] == current_id:
-            old_user = True
-            print("опять ты.")
-            print(forr[0][2])
-            if message.date - forr["last_time"] >= 10:
-                overrandom = random.randint(1, 2)
-                print("фллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллллшупрд")
-            else:
-                overrandom = 0
-    if old_user == False:
-        dumb_dumb_dictionary["id"] = current_time
-        dumb_dumb_dictionary["last_time"] = current_time
-        reventure.append(dumb_dumb_dictionary)
-        overrandom = random.randint(1, 2)
-    print(dumb_dumb_dictionary)
+    user_found = False
+
     print(reventure)
 
-    print(time_one)
-    if overrandom == 1:
-        with open(Madagaskar_photo,
-                  "rb") as photo:  #with open - это конструкция для открытия файлов, rb - read binary - читать в двоичноимм коде(как и надо с картинками)
+    # Проверяем, есть ли пользователь в списке
+    for forr in reventure:
+        if forr["id"] == user_id:
+            user_found = True
+            print("опять ты.")
+
+            # Проверяем, прошло ли нужное время (4 часа = 14400 секунд)
+            if current_time - forr["last_time"] >= 14400:
+                # Время прошло, обновляем время и разрешаем кринж
+                forr["last_time"] = current_time
+                overrandom = random.randint(1, 8)  # Выбираем случайный кринж
+                print("Можно выдать кринж")
+            else:
+                # Время не прошло, считаем сколько осталось
+                remaining = 14400 - (current_time - forr["last_time"])
+                hours = remaining // 3600
+                minutes = (remaining % 3600) // 60
+
+                bot.send_message(
+                    message.chat.id,
+                    f"Подождите еще {hours} ч. {minutes} мин. для нового кринжа"
+                )
+                return  # Выходим из функции, не показывая кринж
+            break  # Выходим из цикла после обработки пользователя
+
+    # Если пользователь не найден в списке
+    if not user_found:
+        # Создаем новую запись о пользователе
+        new_user = {
+            "id": user_id,
+            "time": 0,
+            "points": 0,
+            "last_time": current_time
+        }
+        reventure.append(new_user)
+        overrandom = random.randint(1, 16)  # Для нового пользователя разрешаем кринж
+
+    # Отправляем кринж, если разрешено
+    if overrandom == 0:
+        with open(Madagaskar_photo, "rb") as photo:
             bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - Мадагаскар! \nРедкость : редкий(2000 очков)")
+
+    elif overrandom == 1:
+        with open(Crabs, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Крабики! \nРедкость : обычная(1000 очков)")
     elif overrandom == 2:
         with open(Omnomnom, "rb") as video:
             bot.send_video(message.chat.id, video,
-                           caption="Вы открыли новый кринж из тиктока - Рекорд! \nРедкость : обычная(1000 очков)")  #send_video нужн для того, чтобы отправлять ВИДЕО<- <- <- <- <- <-
+                           caption="Вы открыли новый кринж из тиктока - Рекорд! \nРедкость : обычная(1000 очков)")
+    elif overrandom == 3:
+        with open(Police, "rb") as photo:
+            bot.send_video(message.chat.id, photo,
+                           caption="Вы открыли новый кринж из тиктока - Гамбургерная бедолага! \nРедкость : обычная(1000 очков)")
+    elif overrandom == 4:
+        with open(Blue, "rb") as photo:
+            bot.send_video(message.chat.id, photo,
+                           caption="Вы открыли новый кринж из тиктока - ужас! \nРедкость : обычная(1000 очков)")
+    elif overrandom == 5:
+        with open(Yummy, "rb") as photo:
+            bot.send_video(message.chat.id, photo,
+                           caption="Вы открыли новый кринж из тиктока - Хлеб из столовки! \nРедкость : обычная(1000 очков)")
+    elif overrandom == 6:
+        with open(Dolphyn, "rb") as photo:
+            bot.send_video(message.chat.id, photo,
+                           caption="Вы открыли новый кринж из тиктока - Дольфи! \nРедкость : обычная(1000 очков)")
+    elif overrandom == 7:
+        with open(Kitchen, "rb") as photo:
+            bot.send_video(message.chat.id, photo,
+                           caption="Вы открыли новый кринж из тиктока - Гойда! \nРедкость : редкая(2000 очков)")
+    elif overrandom == 8:
+        with open(Beaty, "rb") as photo:
+            bot.send_video(message.chat.id, photo,
+                           caption="Вы открыли новый кринж из тиктока - Красота! \nРедкость : обычная(1000 очков)")
+    elif overrandom == 9:
+        with open(game, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Простая игра! \nРедкость : Редкая(2000 очков)")
+    elif overrandom == 10:
+        with open(Tapok, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Тапок! \nРедкость : Редкая(2000 очков)")
+    elif overrandom == 11:
+        with open(Intro, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Интро аптеки! \nРедкость : Эпическая(3000 очков)")
+    elif overrandom == 12:
+        with open(Eye_, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Райан Цикполинг! \nРедкость : Легендарная(5000 очков)")
+    elif overrandom == 13:
+        with open(Early_brainrot, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Эдиты, которые нам нужны! \nРедкость : Эпическая(3000 очков)")
+    elif overrandom == 14:
+        with open(Bones, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - Машет костями! \nРедкость : Мифическая(4000 очков)")
+    elif overrandom == 15:
+        with open(AI, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - ИИ захватит всю землю! \nРедкость : Обычная(1000 очков)")
+    elif overrandom == 16:
+        with open(FREEDUROV, "rb") as video:
+            bot.send_video(message.chat.id, video,
+                           caption="Вы открыли новый кринж из тиктока - FREEDUROV! \nРедкость : Обычная(1000 очков)")
+    print(reventure)
+
+
+
+
 
 @bot.message_handler(func=lambda message: message.text == "Не тапайте")
 def vid(message):
@@ -140,6 +241,7 @@ def null():
     Update_school = School.copy()
     win_opinion = ""
     epic_two = None
+
 
 #Хендрел сработает, когда текст сообщения будет названием предмета
 @bot.message_handler(func= lambda message: message.text in School)
