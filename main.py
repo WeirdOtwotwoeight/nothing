@@ -56,15 +56,13 @@ bot = telebot.TeleBot(Token)
 def get_keyboard():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     cringe_button = KeyboardButton("Кринж с титока")
-    cringer_button = KeyboardButton("Не тапайте")
     third_button = KeyboardButton("Eye of Rah")#Создаём кнопку
-    button_again = KeyboardButton("вот")
     no_tap = KeyboardButton("Битва за ин")
+    points_button = KeyboardButton("Узнать свои очки")
     keyboard.add(cringe_button)
-    keyboard.add(cringer_button)
     keyboard.add(third_button)#Добавляем кнопку в клавиатуру
-    keyboard.add(button_again)
     keyboard.add(no_tap)
+    keyboard.add(points_button)
     return keyboard
 
 
@@ -349,8 +347,10 @@ def rogalik(message):
     return epic_two
 
 
-
-
+@bot.message_handler(func= lambda message : message.text == "Узнать свои очки")
+def points__(message):
+    global dumb_dumb_dictionary
+    bot.send_message(message.chat.id, f"Ваше количество очков: {dumb_dumb_dictionary["points"]}")
 
 
 
