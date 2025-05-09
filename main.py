@@ -159,32 +159,32 @@ def cringe_things(message):
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 3:
         with open(Police, "rb") as photo:
-            bot.send_video(message.chat.id, photo,
+            bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - Гамбургерная бедолага! \nРедкость : обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 4:
         with open(Blue, "rb") as photo:
-            bot.send_video(message.chat.id, photo,
+            bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - ужас! \nРедкость : обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 5:
         with open(Yummy, "rb") as photo:
-            bot.send_video(message.chat.id, photo,
+            bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - Хлеб из столовки! \nРедкость : обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 6:
         with open(Dolphyn, "rb") as photo:
-            bot.send_video(message.chat.id, photo,
+            bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - Дольфи! \nРедкость : обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 7:
         with open(Kitchen, "rb") as photo:
-            bot.send_video(message.chat.id, photo,
+            bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - Гойда! \nРедкость : редкая(2000 очков)")
         dumb_dumb_dictionary['points'] += 2000
     elif overrandom == 8:
         with open(Beaty, "rb") as photo:
-            bot.send_video(message.chat.id, photo,
+            bot.send_photo(message.chat.id, photo,
                            caption="Вы открыли новый кринж из тиктока - Красота! \nРедкость : обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 9:
@@ -223,7 +223,7 @@ def cringe_things(message):
                            caption="Вы открыли новый кринж из тиктока - ИИ захватит всю землю! \nРедкость : Обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     elif overrandom == 16:
-        with open(FREEDUROV, "rb") as video:
+        with open(FREEDUROV, "rb",) as video:
             bot.send_video(message.chat.id, video,
                            caption="Вы открыли новый кринж из тиктока - FREEDUROV! \nРедкость : Обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
