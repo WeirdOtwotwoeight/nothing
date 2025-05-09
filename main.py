@@ -58,7 +58,7 @@ def get_keyboard():
     cringe_button = KeyboardButton("Кринж с титока")
     third_button = KeyboardButton("Eye of Rah")#Создаём кнопку
     no_tap = KeyboardButton("Битва за ин")
-    points_button = KeyboardButton("Узнать свои очки")
+    points_button = KeyboardButton("Топ по баллам")
     keyboard.add(cringe_button)
     keyboard.add(third_button)#Добавляем кнопку в клавиатуру
     keyboard.add(no_tap)
@@ -82,7 +82,6 @@ def start_text(message):
 
 
     print(message.from_user.id)
-    bot.send_message(message.chat.id, message)
 
 
     all_of_them = open("dox/dox_classmates.txt", "r")
@@ -229,10 +228,20 @@ def cringe_things(message):
                            caption="Вы открыли новый кринж из тиктока - FREEDUROV! \nРедкость : Обычная(1000 очков)")
         dumb_dumb_dictionary['points'] += 1000
     print(reventure)
-    bot.send_message(
-        message.chat.id,
-        f"Ваш текущий счет: {dumb_dumb_dictionary['points']} очков"
-    )
+    if dumb_dumb_dictionary["points"] < 5000:
+        bot.send_message(message.chat.id, f"Ваше количество очков: {dumb_dumb_dictionary["points"]}, вы пока что лох")
+    elif dumb_dumb_dictionary["points"] < 10000:
+        bot.send_message(message.chat.id, f"Ваше количество очков: {dumb_dumb_dictionary["points"]}, ну неплохо")
+    elif dumb_dumb_dictionary["points"] < 20000:
+        bot.send_message(message.chat.id,
+                         f"Ваше количество очков: {dumb_dumb_dictionary["points"]}, твой мозг, наверное, уже сдеградировал до состояния овоща")
+    elif dumb_dumb_dictionary["points"] < 50000:
+        bot.send_message(message.chat.id,
+                         f"Ваше количество очков: {dumb_dumb_dictionary["points"]}, ты там будильник ставишь что-ли?")
+    elif dumb_dumb_dictionary["points"] < 100000:
+        bot.send_message(message.chat.id,
+                         f"Ваше количество очков: {dumb_dumb_dictionary["points"]}, вот ты каждый день по несколько раз заходишь в телеграмм, в этот чат и нажимаешь на кнопку, чтобы увидеть видео или фото, которое ты видел уже тысячи раз ради того, чтобы быть лучше своих одноклассников в дегродном боте, зависящим от удачи, а весь твой прогресс удалится через несколько недель, тебе нормально так живётся?")
+
     print(dumb_dumb_dictionary)
     file = open("dox/dox_classmates.txt", "a", encoding="utf-8")
     file.write( str(dumb_dumb_dictionary["points"])+" количество баллов "+str(dumb_dumb_dictionary["id"])+" ")
@@ -347,10 +356,9 @@ def rogalik(message):
     return epic_two
 
 
-@bot.message_handler(func= lambda message : message.text == "Узнать свои очки")
+@bot.message_handler(func= lambda message : message.text == "Топ по баллам")
 def points__(message):
     global dumb_dumb_dictionary
-    bot.send_message(message.chat.id, f"Ваше количество очков: {dumb_dumb_dictionary["points"]}")
 
 
 
