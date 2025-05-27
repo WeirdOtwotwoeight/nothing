@@ -112,6 +112,22 @@ dumb_dumb_dictionary = {"id":0,
                         "points":0,
                         "last_time":0}
 not_none = False
+cringe_content = [{"URL": "https://t.me/criicryoyoyo/20",
+                   "type": "video",
+                   "name:": "aktivistiki",
+                   "rarity": "Обычный",
+                   "points": 1000},
+                  {"URL": "https://t.me/criicryoyoyo/19",
+                   "type": "video",
+                   "name:": "Хочешь мандаринку?",
+                   "rarity": "Эпический",
+                   "points": 3000},
+                  {"URL": "https://t.me/criicryoyoyo/18",
+                   "type": "video",
+                   "name:": "Простая игра",
+                   "rarity": "Редкий",
+                   "points": 2000},
+                  ]
 
 
 bot = telebot.TeleBot(Token)
